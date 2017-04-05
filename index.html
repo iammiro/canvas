@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>CNVS</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+</style>
+<body>
+<canvas id="canvas" style="width: 800px; height: 800px; background: black;"></canvas>
+<script>
+
+    var canvas, ctx, img;
+
+    canvas = document.getElementById("canvas");
+    canvas.width = 800;
+    canvas.height = 800;
+    ctx = canvas.getContext('2d');
+
+    img = new Image;
+    img.src = 'brush.png';
+
+    img.addEventListener("load", function () {
+        ctx.drawImage(img, 100, 100);
+    }, false);
+
+
+    canvas.onmousedown = function (e) {
+        console.log('onmousedown', e.clientX, e.clientY);
+    };
+
+    canvas.onmouseup = function (e) {
+        console.log('onmouseup', e.clientX, e.clientY);
+    };
+
+    canvas.onmousemove = function (e) {
+        console.log('onmousemove', e.clientX, e.clientY);
+    };
+</script>
+</body>
+</html>

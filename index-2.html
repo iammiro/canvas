@@ -1,0 +1,88 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>CNVS</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+</style>
+<body>
+<canvas id="canvas" style="background: white; width: 800px; height: 600px;"></canvas>
+<script>
+
+    var canvas = document.getElementById("canvas"),
+        ctx = canvas.getContext("2d");
+
+    canvas.width = 800;
+    canvas.height = 600;
+
+    // 1
+    if (true) {
+        ctx.beginPath();
+        ctx.arc(75,75,50,0,Math.PI*2,true); // Outer circle
+        ctx.moveTo(110,75);
+        ctx.arc(75,75,35,0,Math.PI,false);  // Mouth (clockwise)
+        ctx.moveTo(65,65);
+        ctx.arc(60,65,5,0,Math.PI*2,true);  // Left eye
+        ctx.moveTo(95,65);
+        ctx.arc(90,65,5,0,Math.PI*2,true);  // Right eye
+        ctx.stroke();
+    }
+
+    // 2
+    if (false) {
+        var rectangle = new Path2D();
+        rectangle.rect(10, 10, 50, 50);
+
+        var circle = new Path2D();
+        circle.moveTo(125, 35);
+        circle.arc(100, 35, 25, 0, 2 * Math.PI);
+
+        ctx.stroke(rectangle);
+        ctx.fill(circle);
+    }
+
+
+    // 3
+    if (false) {
+        var img = new Image();
+        img.addEventListener("load", function() {
+            ctx.drawImage(img,0,0);
+        }, false);
+        img.src = 'cat.jpg'; // Set source path
+    }
+
+    // 4
+    if (false) {
+        ctx.fillStyle = "#00F";
+        ctx.strokeStyle = "#F00";
+        ctx.font = "italic 30pt Arial";
+        ctx.fillText("Fill text", 20, 50);
+
+        ctx.font = 'bold 30px sans-serif';
+        ctx.strokeText("Stroke text", 20, 100);
+
+        ctx.shadowColor = "#F00";
+        ctx.shadowOffsetX = 5;
+        ctx.shadowOffsetY = 5;
+        ctx.shadowBlur = 5;
+        ctx.strokeText("Shadow text", 20, 150);
+
+        var gradient = ctx.createLinearGradient(0, 0, 200, 0);
+        gradient.addColorStop(0, "rgb(255, 0, 128)");
+        gradient.addColorStop(1, "rgb(255, 153, 51)");
+        ctx.fillStyle = gradient;
+
+        ctx.shadowColor = "transparent";
+        ctx.fillText("Text Effects", 20, 200);
+    }
+
+</script>
+</body>
+</html>
