@@ -16,7 +16,7 @@
 <canvas id="canvas" style="width: 800px; height: 800px; background: black;"></canvas>
 <script>
 
-    var canvas, ctx, img, isDrawing, lastPoint;
+    var canvas, ctx, img, isDrawing, lastPoint, angleBetween, distanceBetween;
 
     canvas = document.getElementById("canvas");
     canvas.width = 800;
@@ -26,20 +26,17 @@
     img = new Image;
     img.src = 'brush.png';
 
-    var angleBetween, distanceBetween;
-
-    distanceBetween = function(point1, point2) {
+    distanceBetween = function (point1, point2) {
         return Math.sqrt(Math.pow(point2.x - point1.x, 2) + Math.pow(point2.y - point1.y, 2));
     };
 
-    angleBetween = function(point1, point2) {
+    angleBetween = function (point1, point2) {
         return Math.atan2(point2.x - point1.x, point2.y - point1.y);
     };
 
     img.addEventListener("load", function () {
-        ctx.drawImage(img, 100, 100);
+        ctx.drawImage(img, event.clientX, event.clientY);
     }, false);
-
 
     canvas.onmousedown = function (e) {
         isDrawing = true;
@@ -48,6 +45,7 @@
 
     canvas.onmouseup = function (e) {
         isDrawing = false;
+        ctx.moveTo(e.clientX, e.clientY);
         console.log('onmouseup', e.clientX, e.clientY);
     };
 
