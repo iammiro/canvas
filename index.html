@@ -16,7 +16,7 @@
 <canvas id="canvas" style="width: 800px; height: 800px; background: black;"></canvas>
 <script>
 
-    var canvas, ctx, img;
+    var canvas, ctx, img, isDrawing, lastPoint;
 
     canvas = document.getElementById("canvas");
     canvas.width = 800;
@@ -26,20 +26,52 @@
     img = new Image;
     img.src = 'brush.png';
 
+    var angleBetween, distanceBetween;
+
+    distanceBetween = function(point1, point2) {
+        return Math.sqrt(Math.pow(point2.x - point1.x, 2) + Math.pow(point2.y - point1.y, 2));
+    };
+
+    angleBetween = function(point1, point2) {
+        return Math.atan2(point2.x - point1.x, point2.y - point1.y);
+    };
+
     img.addEventListener("load", function () {
         ctx.drawImage(img, 100, 100);
     }, false);
 
 
     canvas.onmousedown = function (e) {
+        isDrawing = true;
         console.log('onmousedown', e.clientX, e.clientY);
     };
 
     canvas.onmouseup = function (e) {
+        isDrawing = false;
         console.log('onmouseup', e.clientX, e.clientY);
     };
 
     canvas.onmousemove = function (e) {
+        if (isDrawing) {
+            ctx.lineTo(e.clientX, e.clientY);
+            ctx.drawImage(img, e.clientX, e.clientY);
+            currentPoint = {
+                x: e.clientX - canvas.getBoundingClientRect().left,
+                y: e.clientY - canvas.getBoundingClientRect().top
+            };
+            if (lastPoint != null) {
+                dist = distanceBetween(lastPoint, currentPoint);
+                angle = angleBetween(lastPoint, currentPoint);
+                i = 0;
+                while (i < dist) {
+                    x = lastPoint.x + Math.sin(angle) * i;
+                    y = lastPoint.y + Math.cos(angle) * i;
+                    ctx.drawImage(img, x, y);
+                    i++;
+                }
+            }
+            lastPoint = currentPoint;
+        }
         console.log('onmousemove', e.clientX, e.clientY);
     };
 </script>
