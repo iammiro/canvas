@@ -40,6 +40,7 @@
 
     canvas.onmousedown = function (e) {
         isDrawing = true;
+        lastPoint = { x: e.clientX, y: e.clientY };
         console.log('onmousedown', e.clientX, e.clientY);
     };
 
