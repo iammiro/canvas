@@ -13,7 +13,7 @@
     }
 </style>
 <body>
-<canvas id="canvas" style="width: 800px; height: 800px; background: black;"></canvas>
+<canvas id="canvas" style="width: 800px; height: 800px; background: black; cursor: url('brush.png'), auto"></canvas>
 <script>
 
     var canvas, ctx, img, isDrawing, lastPoint, angleBetween, distanceBetween;
@@ -35,7 +35,7 @@
     };
 
     img.addEventListener("load", function () {
-        ctx.drawImage(img, event.clientX, event.clientY);
+//        ctx.drawImage(img, 100, 100);
     }, false);
 
     canvas.onmousedown = function (e) {
